@@ -1,0 +1,232 @@
+.calc-container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.header {
+    margin-top: 36px;
+    width: 100%;
+}
+
+.header-image{
+    width: 100%;
+    height: auto;
+}
+
+/*****************************************/
+
+.questions{
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 140px;
+}
+
+.question {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.texts, .li-text{
+    margin-right: 10px;
+    direction: rtl;
+    text-align: right;
+}
+
+.li-text{
+    
+}
+
+.answer-buttons{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.answer-button{
+    display: inline-block;
+    width: 100px;
+    height: 36px;
+    gap: 0px;
+    border-radius: 999px;
+    border: 1px 0px 0px 0px;
+    opacity: 0px;
+    background: #FFFFFF66;
+    border: 1px solid #E0E0E4;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    color: #06267F;
+    font-family: Assistant;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 10px;
+    text-align: center;
+}
+
+.answer-button.clicked{
+    background: #7088A7;
+    color: #FFFFFF;
+}
+
+.date-input ,.toggle-switch{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    margin-left: auto;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url('./img/date-logo.png');
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    top: 669px;
+    left: 208px;
+    padding: 1.71px;
+    gap: 0px;
+    opacity: 0px;
+    margin-left: 5px;
+
+}
+
+input[type="date"] {
+    width: 206px;
+    height: 43px;
+    gap: 0px;
+    border-radius: 999px;
+    border: 1px;
+    opacity: 0px;
+    background: #FFFFFF66;
+    border: 1px solid #E0E0E4;
+    color: #000000;
+}
+
+input[type="date"]::-webkit-calendar-popup {
+    background-color: yellow;
+}
+
+/* toggle */
+.toggle-switch {
+    width: 206px;
+    height: 36px;
+    border-radius: 999px;
+    background-color: #033BA51A;
+}
+.toggle-button {
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: none;
+    border: 999px;
+    font-family: Assistant;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: center;
+    color: #06267FB2;
+}
+.toggle-button.active{
+    width: 50%;
+    height: 100%;
+    padding: 5px 0px 5.65px 0px;
+    gap: 0px;
+    border-radius: 999px;
+    opacity: 0px;
+    background: #FFFFFF;
+    font-family: Assistant;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    text-align: center;
+    color: #06267F;
+}
+
+.still-ishpuz-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.still-ishpuz{
+    right: 0;
+    width: 149px;
+    height: 43px;
+    border-radius: 999px;
+    opacity: 0px;
+    background: #FFFFFF;
+    font-family: Assistant;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20.93px;
+    text-align: center;
+    color: #06267F;
+    align-items: center;
+    justify-content: center;
+}
+
+/*****************************************/
+
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 140px;
+    background: #FFFFFF;
+}
+
+.calc-button {
+    position: relative;
+}
+
+.calc-button.off {
+    width: 90%;
+    height: 52px;
+    top: 58px;
+    left: 5%;
+    padding: 16px 0px 16px 0px;
+    gap: 0px;
+    border-radius: 999px;
+    opacity: 0px;
+    background: #7EDC8166;
+    box-shadow: 0px 8px 15px 0px #04248A12;
+    border: none;
+
+    color: #07070766;
+    font-family: Ploni ML v2 AAA;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+
+    cursor: default;
+
+}
+
+.calc-button.on {
+    width: 90%;
+    height: 52px;
+    top: 58px;
+    left: 5%;
+    padding: 16px 0px 16px 0px;
+    gap: 0px;
+    border-radius: 999px;
+    opacity: 0px;
+    background: #7EDC81;
+    box-shadow: 0px 8px 15px 0px #04248A12;   
+    border: none;
+    
+    color: #070707;
+    font-family: Ploni ML v2 AAA;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+
+    cursor: pointer;
+}
