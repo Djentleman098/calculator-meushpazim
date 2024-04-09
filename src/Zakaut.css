@@ -1,4 +1,15 @@
 .zakaut-container{
-    border: 2px solid black;
-    border-radius: 4px;
+    position: relative;
+    width: 90%;
+    height: 100%;
+    min-height: 66px;
+    left: 5%;
+    gap: 0px;
+    border-radius: 20px;
+    opacity: 0px;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 15px 0px #04248A12;
+}
+
+.zakaut-header{
 }

@@ -9,18 +9,19 @@ import HeaderImage from './img/idf-header.png';
 
 const Results = ({changePage, hatavot}) => {
 
+    // toggle to show maanal or hatava
     const [showMaanak, setShowMaanak] = useState(true);
 
     const zakauyotFilter = Data.filter(data => data.type === 1 && hatavot.includes(data.id));
     const hatavotFilter = Data.filter(data => data.type === 2 && hatavot.includes(data.id));
 
-    let totalAmount = 0;
-    for (let zak of zakauyotFilter){
-        totalAmount += zak.amount;
-    }
-    for (let hat of hatavotFilter){
-        totalAmount += hat.amount;
-    }
+    // calculate the amount
+    const sumAmount = zakauyotFilter.reduce((total, current) => {
+        if (typeof current.amount === 'number')
+            return total + current.amount
+        return total;
+    }, 0);
+    console.log(sumAmount);
 
     return (
     <div className="results-container">
@@ -29,7 +30,7 @@ const Results = ({changePage, hatavot}) => {
         </div>
         <div className="results-summary">
             <h4 className="texts">לפי הנתונים שהוזנו אלה הזכויות שלך</h4>
-            <h2 className="texts">{zakauyotFilter.length} מענקים בסך: {totalAmount} ₪</h2>
+            <h2 className="texts">{zakauyotFilter.length} מענקים בסך: {sumAmount.toLocaleString()} ₪</h2>
             <h2 className="texts">{hatavotFilter.length} הטבות נוספות</h2>
         </div>
         <div className="toggle-hatava">
