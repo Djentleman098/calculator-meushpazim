@@ -9,7 +9,7 @@ const Hatava = ({id}) => {
 
     return (
     <div className="hatava-container">
-        <p>{hatava.name}</p>
+        <h3 className="texts">{hatava.name}</h3>
     </div>
     );
 }

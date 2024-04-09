@@ -21,11 +21,6 @@ const Results = ({changePage, hatavot}) => {
     for (let hat of hatavotFilter){
         totalAmount += hat.amount;
     }
-    
-    const handleWhatToShow = () => {
-        const prevState = showMaanak;
-        setShowMaanak(!prevState);
-    };
 
     return (
     <div className="results-container">
@@ -38,27 +33,25 @@ const Results = ({changePage, hatavot}) => {
             <h2 className="texts">{hatavotFilter.length} הטבות נוספות</h2>
         </div>
         <div className="toggle-hatava">
-            <button className={`toggle-hatava-button ${showMaanak === true ? 'active' : ''}`} onClick={handleWhatToShow}>מענקים</button>
-            <button className={`toggle-hatava-button ${showMaanak === false ? 'active' : ''}`} onClick={handleWhatToShow}>הטבות נוספות</button>
+            <button className={`toggle-hatava-button ${showMaanak === false ? 'active' : ''}`} onClick={() => {setShowMaanak(false)}}>הטבות נוספות</button>
+            <button className={`toggle-hatava-button ${showMaanak === true ? 'active' : ''}`} onClick={() => {setShowMaanak(true)}}>מענקים</button>
         </div>
 
         {showMaanak &&
-        <div>
-            <p>זכויות</p>
+        <div className="results-list">
             {zakauyotFilter.length > 0 && zakauyotFilter.map(zakaut => (
                 <Zakaut id={zakaut.id}/>
             ))}           
         </div>}
 
         {showMaanak === false &&
-        <div>
-            <p>הטבות</p>
+        <div className="results-list">
             {hatavotFilter.length > 0 && hatavotFilter.map(hatava => (
                 <Hatava id={hatava.id}/>
             ))}
         </div>}
 
-        <div className="footer">
+        <div className="results-footer">
             <button className="return-button" onClick={changePage}>חזרה לדף הבית</button>
         </div>
     </div>
