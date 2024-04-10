@@ -1,7 +1,7 @@
 .zakaut-container{
     position: relative;
     width: 90%;
-    height: 100%;
+    height: auto;
     min-height: 66px;
     left: 5%;
     gap: 0px;
@@ -9,7 +9,76 @@
     opacity: 0px;
     background: #FFFFFF;
     box-shadow: 0px 8px 15px 0px #04248A12;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 7px; 
+
+}
+.zakaut-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between; 
+}
+.text-zakaut-header{
+    width: 80%;
+    margin-right: 10px;
+    margin-left: auto;
+    direction: rtl;
 }
 
-.zakaut-header{
+.zakaut-amount{
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    width: 90%;
+    height: 50px;
+    left: 5%;
+    gap: 0px;
+    border-radius: 8px;
+    opacity: 0px;
+    background: #E6CA90;
+    margin-bottom: 10px;
 }
+.amount-zakaut{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-family: Assistant;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26.16px;
+    text-align: right;
+    color: #000000;
+}
+.text-zakaut{
+    margin-right: 10px;
+    font-family: Assistant;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.93px;
+    text-align: right;
+    color: #000000;
+
+}
+
+.expand-icon {
+    transition: transform 0.3s ease-in-out;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.expanded {
+    transform: rotate(180deg);
+  }
+
+  .extra-text{
+    position: relative;
+    margin-right: 10px;
+    direction: rtl;
+    text-align: right;
+    text-decoration: underline;
+    color: #127DE1;
+
+  }

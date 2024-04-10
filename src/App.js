@@ -28,7 +28,9 @@ function App() {
 
   const [page, setPage] = useState('calculator');
   const [hatavot, setHatavot] = useState([]);
+  const [days, setDays] = useState(0);
 
+  // passes the hatavot from calculator to results page
   const handlePageChange = (hatavot) => {
     if (page === 'calculator'){
       setPage('results');
@@ -37,10 +39,15 @@ function App() {
       setPage('calculator');
   };
 
+  // passes the total days in ishpuz from calculator to results page
+  const setTotalDays = (total) => {
+    setDays(total);
+  };
+
   return (
     <div className="App">
-      {page === 'calculator' && <Calculator changePage={handlePageChange}/>}
-      {page === 'results' && <Results changePage={handlePageChange} hatavot={hatavot}/>}
+      {page === 'calculator' && <Calculator changePage={handlePageChange} totalDays={setTotalDays}/>}
+      {page === 'results' && <Results changePage={handlePageChange} hatavot={hatavot} totalDays={days}/>}
     </div>
   );
 }

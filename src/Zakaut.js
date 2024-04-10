@@ -4,22 +4,34 @@ import './Zakaut.css';
 import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import { useMediaQuery } from 'react-responsive';
 
-const Zakaut = ({id}) => {
+const Zakaut = ({id, amount}) => {
 
     const [expanded, setExpanded] = useState(false);
+    const [extraExpand, setExtraExpand] = useState(false);
 
     const zakaut = Data.find(data => data.id === id);
 
+    console.log(amount);
+
     return (
     <div className="zakaut-container">
-        <div className="zakaut-header">
+        <div className="zakaut-header"> 
             <div className={`expand-icon ${expanded ? 'expanded' : ''}`} onClick={() => {setExpanded(!expanded)}}>
                 <ExpandCircleDownOutlinedIcon />
             </div>            
-            <h3 className="texts">{zakaut.name}</h3>
+            <h3 className="text-zakaut-header">{zakaut.name}</h3>
         </div>
+        {amount && amount.amount !== null &&
+        <div className="zakaut-amount">
+            <span className="amount-zakaut">₪ {amount.amount.toLocaleString()}</span>
+            <p className="text-zakaut">גובה ההטבה</p>
+        </div>}
         {expanded && 
-        <p className="texts">{zakaut.text}</p>}
+            <p className="texts">{zakaut.text}</p>}
+        {expanded && zakaut.extraText !== null &&
+            <p className="extra-text" onClick={() => {setExtraExpand(!extraExpand)}}>פירוט נוסף</p>}
+        {expanded && extraExpand &&
+            <p className="texts">{zakaut.extraText}</p>}
     </div>
     );
 }

@@ -3,31 +3,45 @@ import './Results.css';
 import Zakaut from './Zakaut';
 import Hatava from './Hatava';
 import Data from './Data';
+import Idf from './img/idf.png';
+import Nifgaim from './img/nifgaim.png';
 import { useMediaQuery } from 'react-responsive';
-import HeaderImage from './img/idf-header.png';
 
 
-const Results = ({changePage, hatavot}) => {
+const Results = ({changePage, hatavot, totalDays}) => {
+    
+    const zakauyotAmounts = [
+        {id: 2, amount: 2635},
+        {id: 3, amount: 5270},
+        {id: 4, amount: (Math.floor(totalDays/30) * 11570) + ((totalDays % 30) * 380)},
+        {id: 5, amount: (Math.floor(totalDays/30) * 11570) + ((totalDays % 30) * 380)},
+        {id: 6, amount: 500},
+        {id: 7, amount: 500},
+        {id: 8, amount: 5000},
+        {id: 9, amount: 1000},
+        {id: 10, amount: 5000},
+    ];
 
     // toggle to show maanal or hatava
     const [showMaanak, setShowMaanak] = useState(true);
 
     const zakauyotFilter = Data.filter(data => data.type === 1 && hatavot.includes(data.id));
+    const zakauyotAmountsFiltered = zakauyotAmounts.filter(zakaut => hatavot.includes(zakaut.id));
     const hatavotFilter = Data.filter(data => data.type === 2 && hatavot.includes(data.id));
 
     // calculate the amount
-    const sumAmount = zakauyotFilter.reduce((total, current) => {
-        if (typeof current.amount === 'number')
-            return total + current.amount
-        return total;
-    }, 0);
-    console.log(sumAmount);
+    let sumAmount = 0;
+    for (let zakaut of zakauyotAmountsFiltered){
+        if (typeof zakaut.amount === 'number')
+            sumAmount += zakaut.amount;
+    };
 
     return (
     <div className="results-container">
-        <div className="header">
-            <img src={HeaderImage} alt={"Header"} className="header-image"/>
-        </div>
+            <div className="header">
+                <img src={Idf} alt={"Header"} className="idf-image"/>
+                <img src={Nifgaim} alt={"Header"} className="nifgaim-image"/>
+            </div>
         <div className="results-summary">
             <h4 className="texts">לפי הנתונים שהוזנו אלה הזכויות שלך</h4>
             <h2 className="texts">{zakauyotFilter.length} מענקים בסך: {sumAmount.toLocaleString()} ₪</h2>
@@ -41,7 +55,7 @@ const Results = ({changePage, hatavot}) => {
         {showMaanak &&
         <div className="results-list">
             {zakauyotFilter.length > 0 && zakauyotFilter.map(zakaut => (
-                <Zakaut id={zakaut.id}/>
+                <Zakaut id={zakaut.id} amount={zakauyotAmountsFiltered.find(item => item.id === zakaut.id)}/>
             ))}           
         </div>}
 

@@ -1,25 +1,54 @@
     import React, { useState, useEffect } from 'react';
     import { useMediaQuery } from 'react-responsive';
     import './Calculator.css';
-    import HeaderImage from './img/idf-header.png';
+    import Idf from './img/idf.png';
+    import Nifgaim from './img/nifgaim.png';
     import Logic from './Logic';
     const logic = Logic();
 
-    const Calculator = ({changePage}) => {
+    const Calculator = ({changePage, totalDays}) => {
 
+        // determains if the calculate buton will be clickable
         const [canCalculate, setCanCalculate] = useState(false);
+        // progress bar
+        const [progress, setProgress] = useState(0);
+
+        const currentDate = new Date().toISOString().split('T')[0];
 
         const [formData, setFormData] = useState({
             sosh: null,
             specialHova: null,
             pgiaDate: null,
             maxPgiaLevel: null,
-            didIshpuz: false,
+            didIshpuz: null,
             ishpuzStartDate: null,
             ishpuzEndDate: null,
-            stillIshpuz: false,
+            stillIshpuz: null,
             isMukar: null
         });
+
+        // function to calculate the progress bar
+        useEffect(() => {
+            const calcProgress = () => {
+                let amountOfQuestions, answeredQuestions;
+                formData.didIshpuz === true ? (formData.sosh === 1 ? amountOfQuestions = 8 : amountOfQuestions = 7) : (formData.sosh === 1 ? amountOfQuestions = 5 : amountOfQuestions = 4);
+                formData.sosh === 1 ? answeredQuestions = Object.values(formData).filter(value => value != null).length : answeredQuestions = Object.entries(formData).filter(([key, value]) => key !== 'specialHova' && value != null).length;
+                setProgress((answeredQuestions/amountOfQuestions)*100*0.9);
+            };
+
+            calcProgress();
+        }, [formData]);
+
+        // check if all the questions are answered
+        useEffect(() => {
+            const checkFinished = () => {
+                if (progress === 100*0.9)
+                    setCanCalculate(true);
+                else
+                    setCanCalculate(false);
+            };
+            checkFinished();
+        },[progress]);
 
         const handleSosh = (value) => {
             const newData = {
@@ -27,13 +56,17 @@
                 sosh: value
             };
             setFormData(newData);
-            /////
-            setCanCalculate(true);
         };
 
         const handleSpecialHova = (value) => {
+            let setSpecialHova;
+            if (formData.specialHova === null)
+                setSpecialHova = false;
+            else
+                setSpecialHova = formData.specialHova;
             const newData = {
                 ...formData,
+                specialHova: setSpecialHova,
                 specialHova: value
             };
             setFormData(newData);
@@ -49,15 +82,23 @@
         };
 
         const handleMaxPgiaLevel = (value) => {
+            let setDidIshpuz;
+            if (formData.didIshpuz === null)
+                setDidIshpuz = false;
+            else
+                setDidIshpuz = formData.didIshpuz;
             const newData = {
                 ...formData,
+                didIshpuz: setDidIshpuz,
                 maxPgiaLevel: value
             };
             setFormData(newData);
         };
 
-        const handleDidIshpuz = () => {
-            const prevState = formData.didIshpuz;
+        const handleDidIshpuz = (bool) => {
+            let prevState = formData.didIshpuz;
+            if (prevState === bool)
+                return;
             const newData = {
                 ...formData,
                 didIshpuz: !prevState
@@ -78,17 +119,22 @@
             const newValue = e.target.value;
             const newData = {
                 ...formData,
+                stillIshpuz: null,
                 ishpuzEndDate: newValue
             };
             setFormData(newData);
         };
 
-        const handleStillIshpuz = () => {
-            const prevState = formData.stillIshpuz;
+        const handleStillIshpuz = (e) => {
+            let newState;
+            if (e.target.checked)
+                newState = true;
+            else
+                newState = null;
             const newData = {
                 ...formData,
                 ishpuzEndDate: null,
-                stillIshpuz: !prevState
+                stillIshpuz: newState,
             };
             setFormData(newData);
         };
@@ -105,13 +151,24 @@
             if (canCalculate){
                 const hatavot = logic.calculate(formData);
                 changePage(hatavot);
+                // calculate how many days in ishpuz
+                if (formData.ishpuzStartDate !== null && (formData.ishpuzEndDate !== null || formData.stillIshpuz !== null)) {
+                    const startDate = new Date(formData.ishpuzStartDate);
+                    const endDate = formData.stillIshpuz != null ? new Date() : new Date(formData.ishpuzEndDate);
+                    // Calculate the difference in milliseconds
+                    const differenceMs = endDate.getTime() - startDate.getTime();
+                    // Convert milliseconds to days
+                    const daysInIshpuz = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+                    totalDays(daysInIshpuz);
+                }
             }
         };
 
         return (
         <div className="calc-container">
             <div className="header">
-                <img src={HeaderImage} alt={"Header"} className="header-image"/>
+                <img src={Idf} alt={"Header"} className="idf-image"/>
+                <img src={Nifgaim} alt={"Header"} className="nifgaim-image"/>
             </div>
             <div className="questions">
                 <h2 className="texts">מחשבון זכויות</h2>
@@ -142,7 +199,7 @@
                 {formData.sosh !== null &&
                 <div>
                     <h4 className="texts">תאריך הפציעה</h4>
-                    <input className="date-input" type="date" value={formData.pgiaDate || ''} onChange={handlePgiaDate}/>
+                    <input className="date-input" type="date" value={formData.pgiaDate || ''} onChange={handlePgiaDate} max={currentDate}/>
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null &&
                 <div className="question">
@@ -157,29 +214,29 @@
                 <div className="question">
                     <h4 className="texts">האם אושפזת?</h4>
                     <div className="toggle-switch">
-                        <button className={`toggle-button ${formData.didIshpuz === true ? 'active' : ''}`} onClick={handleDidIshpuz}>כן</button>
-                        <button className={`toggle-button ${formData.didIshpuz === false ? 'active' : ''}`} onClick={handleDidIshpuz}>לא</button>
+                        <button className={`toggle-button ${formData.didIshpuz === true ? 'active' : ''}`} onClick={() => handleDidIshpuz(true)}>כן</button>
+                        <button className={`toggle-button ${formData.didIshpuz === false || formData.didIshpuz === null ? 'active' : ''}`} onClick={() => handleDidIshpuz(false)}>לא</button>
                     </div>
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null && formData.didIshpuz === true &&
                 <div>
                     <h4 className="texts">תאריך תחילת אשפוז</h4>
-                    <input className="date-input" type="date" value={formData.ishpuzStartDate || ''} onChange={handleIshpuzStartDate}/>
+                    <input className="date-input" type="date" value={formData.ishpuzStartDate || ''} onChange={handleIshpuzStartDate} max={currentDate} min={formData.pgiaDate}/>
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null && formData.didIshpuz === true && formData.ishpuzStartDate !== null &&
                 <div>
                     <h4 className="texts">תאריך שחרור מאשפוז</h4>
                     <div className="still-ishpuz-container">
                         <div className="still-ishpuz">
-                            <label htmlFor="stillIshpuz">עדיין מאושפז</label>
-                            <input type="checkbox" onChange={handleStillIshpuz} />
+                            <label className="still-ishpuz-label" htmlFor="stillIshpuz">עדיין מאושפז</label>
+                            <input className="still-ishpuz-input" type="checkbox" onChange={handleStillIshpuz} checked={formData.stillIshpuz === true}/>
                         </div>
                         <div>
-                            <input className="date-input" type="date" value={formData.ishpuzEndDate || ''} onChange={handleIshpuzEndDate}/>
+                            <input className="date-input" type="date" value={formData.ishpuzEndDate || ''} onChange={handleIshpuzEndDate} max={currentDate} min={formData.ishpuzStartDate}/>
                         </div>
                     </div>
                 </div>}
-                {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null && formData.didIshpuz === true && formData.ishpuzStartDate !== null && (formData.stillIshpuz !== false || formData.ishpuzEndDate !== null) &&
+                {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null && formData.didIshpuz === true && formData.ishpuzStartDate !== null && (formData.stillIshpuz !== null || formData.ishpuzEndDate !== null) &&
                 <div className="question">
                     <h4 className="texts">האם קיבלת הכרה לנכות ממשרד הבטחון?</h4>
                     <div className="answer-buttons">
@@ -191,6 +248,10 @@
                 </div>}
             </div>
             <div className="footer">
+                <div className="progress-container">
+                    <div className="progress-background"></div>
+                    <div className="progress-bar" style={{width: `${progress}%`}}></div>
+                </div>
                 <button className={`calc-button ${canCalculate ? 'on' : 'off'}`} onClick={handleCalculate}>חשב זכאות</button>
             </div>
         </div>
