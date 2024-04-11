@@ -11,17 +11,18 @@
     width: 100%;
     background-color: #FFFFFF;
     display: flex;
+    justify-content: space-between;
+    align-items: center; 
 }
-
-.idf-image{
+.nifgaim-image {
     width: auto;
-    height: 100%;
-    right: 20px;
+    height: 80%;
+    margin-left: 20px;
 }
-.nifgaim-img{
+.idf-image {
     width: auto;
-    height: 100%;
-    left: 20px;
+    height: 80%; 
+    margin-right: 20px;
 }
 
 /*****************************************/
@@ -40,6 +41,7 @@
 
 .texts, .li-text{
     margin-right: 10px;
+    margin-left: 10px;
     direction: rtl;
     text-align: right;
 }
@@ -74,6 +76,7 @@
     font-weight: 400;
     line-height: 10px;
     text-align: center;
+    line-height: 100%;
 }
 
 .answer-button.clicked{

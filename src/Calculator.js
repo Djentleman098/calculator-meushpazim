@@ -167,11 +167,11 @@
         return (
         <div className="calc-container">
             <div className="header">
-                <img src={Idf} alt={"Header"} className="idf-image"/>
                 <img src={Nifgaim} alt={"Header"} className="nifgaim-image"/>
+                <img src={Idf} alt={"Header"} className="idf-image"/>
             </div>
             <div className="questions">
-                <h2 className="texts">מחשבון זכויות</h2>
+                <h2 className="texts">מחשבון זכויות פצועים</h2>
                 <li className="li-text">המחשבון הינו סימולציה המחושבת לפי הנתונים המוזנים על ידך בלבד. הזכאות הסופית תחושב על פי המופיע ברישומים הרשמיים.</li>
                 <li className="li-text">פצועים שנפצעו במסגרת שירותם בכוחות הבטחון (שאינם הצבא) יפנו ליחידתם לבירור זכאויות והטבות.</li>
                 <div className="question">

@@ -30,6 +30,11 @@ function App() {
   const [hatavot, setHatavot] = useState([]);
   const [days, setDays] = useState(0);
 
+    // Scroll to the top when page changes
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [page]);
+
   // passes the hatavot from calculator to results page
   const handlePageChange = (hatavot) => {
     if (page === 'calculator'){
