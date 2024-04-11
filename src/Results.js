@@ -3,8 +3,7 @@ import './Results.css';
 import Zakaut from './Zakaut';
 import Hatava from './Hatava';
 import Data from './Data';
-import Idf from './img/idf.png';
-import Nifgaim from './img/nifgaim.png';
+import Header from './Header';
 import { useMediaQuery } from 'react-responsive';
 
 
@@ -39,10 +38,7 @@ const Results = ({changePage, hatavot, totalDays}) => {
 
     return (
     <div className="results-container">
-            <div className="header">
-                <img src={Idf} alt={"Header"} className="idf-image"/>
-                <img src={Nifgaim} alt={"Header"} className="nifgaim-image"/>
-            </div>
+        <Header />
         <div className="results-summary">
             <h4 className="texts">לפי הנתונים שהוזנו אלה הזכויות שלך</h4>
             <h2 className="texts">{zakauyotFilter.length} מענקים בסך: {sumAmount.toLocaleString()} ₪</h2>

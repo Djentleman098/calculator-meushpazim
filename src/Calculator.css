@@ -5,26 +5,6 @@
     position: relative;
 }
 
-.header {
-    height: 56px;
-    margin-top: 36px;
-    width: 100%;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-}
-.nifgaim-image {
-    width: auto;
-    height: 80%;
-    margin-left: 20px;
-}
-.idf-image {
-    width: auto;
-    height: 80%; 
-    margin-right: 20px;
-}
-
 /*****************************************/
 
 .questions{

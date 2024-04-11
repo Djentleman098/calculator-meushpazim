@@ -1,8 +1,7 @@
     import React, { useState, useEffect } from 'react';
     import { useMediaQuery } from 'react-responsive';
     import './Calculator.css';
-    import Idf from './img/idf.png';
-    import Nifgaim from './img/nifgaim.png';
+    import Header from './Header';
     import Logic from './Logic';
     const logic = Logic();
 
@@ -166,10 +165,7 @@
 
         return (
         <div className="calc-container">
-            <div className="header">
-                <img src={Nifgaim} alt={"Header"} className="nifgaim-image"/>
-                <img src={Idf} alt={"Header"} className="idf-image"/>
-            </div>
+            <Header />
             <div className="questions">
                 <h2 className="texts">מחשבון זכויות פצועים</h2>
                 <li className="li-text">המחשבון הינו סימולציה המחושבת לפי הנתונים המוזנים על ידך בלבד. הזכאות הסופית תחושב על פי המופיע ברישומים הרשמיים.</li>
