@@ -17,9 +17,10 @@ const Results = ({changePage, hatavot, totalDays}) => {
         {id: 5, amount: (Math.floor(totalDays/30) * 11570) + ((totalDays % 30) * 380)},
         {id: 6, amount: 500},
         {id: 7, amount: 500},
-        {id: 8, amount: 5000},
-        {id: 9, amount: 1000},
-        {id: 10, amount: 5000},
+        {id: 8, amount: 1800},
+        {id: 9, amount: 5000},
+        {id: 10, amount: 1000},
+        {id: 11, amount: 5000},
     ];
 
     // toggle to show maanal or hatava

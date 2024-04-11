@@ -22,7 +22,7 @@ const Logic = () => {
         {id: 14, sosh: [1,2], pgia: 0, ishpuz: true, days: null, stillIshpuz: null, tash: null, hakara: 0, group: 'siyau'},
         {id: 15, sosh: 3, pgia: 0, ishpuz: null, days: null, stillIshpuz: null, tash: null, hakara: 0, group: 'siyau'},
         {id: 16, sosh: 0, pgia: 0, ishpuz: null, days: null, stillIshpuz: null, tash: null, hakara: 0, group: null},
-        {id: 17, sosh: 0, pgia: 0, ishpuz: null, days: null, stillIshpuz: null, tash: null, hakara: [1, 3, 4], group: null},
+        {id: 17, sosh: 1, pgia: 0, ishpuz: null, days: null, stillIshpuz: null, tash: null, hakara: [1, 3, 4], group: null},
         {id: 18, sosh: 0, pgia: 0, ishpuz: null, days: null, stillIshpuz: null, tash: null, hakara: 0, group: null},
         {id: 19, sosh: 0, pgia: 0, ishpuz: null, days: null, stillIshpuz: null, tash: null, hakara: 2, group: null},
 ];
