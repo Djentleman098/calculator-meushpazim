@@ -11,7 +11,7 @@ const Hatava = ({id}) => {
 
     return (
     <div className="zakaut-container">
-        <div className="zakaut-header"> 
+        <div className="zakaut-header" onClick={() => {setExpanded(!expanded)}}> 
             <div className={`expand-icon ${expanded ? 'expanded' : ''}`} onClick={() => {setExpanded(!expanded)}}>
                 <ExpandCircleDownOutlinedIcon />
             </div>            
