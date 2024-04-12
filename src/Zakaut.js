@@ -27,11 +27,11 @@ const Zakaut = ({id, amount}) => {
             <p className="text-zakaut">גובה ההטבה</p>
         </div>}
         {expanded && 
-            <p className="texts">{zakaut.text}</p>}
+            <div className="texts" dangerouslySetInnerHTML={{ __html: zakaut.text }} />}
         {expanded && zakaut.extraText !== null &&
             <p className="extra-text" onClick={() => {setExtraExpand(!extraExpand)}}>פירוט נוסף</p>}
         {expanded && extraExpand &&
-            <p className="texts">{zakaut.extraText}</p>}
+            <div className="texts" dangerouslySetInnerHTML={{ __html: zakaut.extraText }} />}
     </div>
     );
 }

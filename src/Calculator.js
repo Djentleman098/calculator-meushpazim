@@ -157,7 +157,7 @@
                     // Calculate the difference in milliseconds
                     const differenceMs = endDate.getTime() - startDate.getTime();
                     // Convert milliseconds to days
-                    const daysInIshpuz = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+                    const daysInIshpuz = Math.ceil(differenceMs / (1000 * 60 * 60 * 24)) + 1;
                     totalDays(daysInIshpuz);
                 }
             }
@@ -170,6 +170,7 @@
                 <h2 className="texts">מחשבון זכויות פצועים</h2>
                 <li className="li-text">המחשבון הינו סימולציה המחושבת לפי הנתונים המוזנים על ידך בלבד. הזכאות הסופית תחושב על פי המופיע ברישומים הרשמיים.</li>
                 <li className="li-text">פצועים שנפצעו במסגרת שירותם בכוחות הבטחון (שאינם הצבא) יפנו ליחידתם לבירור זכאויות והטבות.</li>
+                <li className="li-text">במידה ואושפזת יותר מפעם אחת, תוכל לבחון את זכויותך על כל תקופה בנפרד.</li>
                 <div className="question">
                     <h4 className="texts">בעת הפציעה מה היה סוג השירות שלך?</h4>
                     <div className="answer-buttons">
@@ -195,7 +196,7 @@
                 {formData.sosh !== null &&
                 <div>
                     <h4 className="texts">תאריך הפציעה</h4>
-                    <input className="date-input" type="date" value={formData.pgiaDate || ''} onChange={handlePgiaDate} max={currentDate}/>
+                    <input className="date-input" type="date" value={formData.pgiaDate || ''} onChange={handlePgiaDate} max={currentDate} min={'2023-10-07'}/>
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null &&
                 <div className="question">
@@ -208,7 +209,7 @@
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null &&
                 <div className="question">
-                    <h4 className="texts">האם אושפזת?</h4>
+                    <h4 className="texts">האם אושפזת? (לא כולל אשפוז יום)</h4>
                     <div className="toggle-switch">
                         <button className={`toggle-button ${formData.didIshpuz === true ? 'active' : ''}`} onClick={() => handleDidIshpuz(true)}>כן</button>
                         <button className={`toggle-button ${formData.didIshpuz === false || formData.didIshpuz === null ? 'active' : ''}`} onClick={() => handleDidIshpuz(false)}>לא</button>

@@ -18,7 +18,7 @@ const Hatava = ({id}) => {
             <h3 className="text-zakaut-header">{hatava.name}</h3>
         </div>
         {expanded && 
-        <p className="texts">{hatava.text}</p>}
+            <div className="texts" dangerouslySetInnerHTML={{ __html: hatava.text }} />}
     </div>
     );
 }
