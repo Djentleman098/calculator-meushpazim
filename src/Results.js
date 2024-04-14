@@ -64,7 +64,7 @@ const Results = ({changePage, hatavot, totalDays}) => {
         </div>}
 
         <div className="results-footer">
-            <button className="return-button" onClick={changePage}>חזרה לדף הבית</button>
+            <button className="return-button" onClick={changePage}>חזרה למחשבון</button>
         </div>
     </div>
     );
