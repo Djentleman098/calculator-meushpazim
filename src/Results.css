@@ -22,13 +22,26 @@
     width: 90%;
     height: 194px;
     margin-top: 20px;
+    padding-bottom: 10px;
     left: 5%;
     gap: 0px;
     border-radius: 20px;
     opacity: 0px;
-    background: #FED364;
+    background: #1B5897;
     align-items: center;    
+    color: #FFFFFF;
+    font-family: Assistant;
 }
+
+.return-text{
+    position: relative;
+    margin-right: 10px;
+    direction: rtl;
+    text-align: right;
+    text-decoration: underline;
+    color: #FFFFFF;
+    font-family: Assistant;
+  }
 
 .toggle-hatava{
     position: relative;
@@ -101,11 +114,11 @@
     gap: 0px;
     border-radius: 999px;
     opacity: 0px;
-    background: #6498FE;
     box-shadow: 0px 8px 15px 0px #04248A12;   
-    border: none;
+    background: none;
+    border: 1px solid #1B5897;
     
-    color: #FFFFFF;
+    color: #1B5897;
     font-family: Ploni;
     font-size: 16px;
     font-weight: 600;

@@ -5,14 +5,20 @@
     import Logic from './Logic';
     const logic = Logic();
 
-    const Calculator = ({changePage, totalDays}) => {
+    const Calculator = ({changePage, formData: previousFormData, totalDays}) => {
 
         // determains if the calculate buton will be clickable
         const [canCalculate, setCanCalculate] = useState(false);
         // progress bar
         const [progress, setProgress] = useState(0);
-
+        // saves current date
         const currentDate = new Date().toISOString().split('T')[0];
+
+        useEffect(() => {
+            if (previousFormData !== null) {
+                setFormData(previousFormData);
+            }
+        }, []);
 
         const [formData, setFormData] = useState({
             sosh: null,
@@ -149,7 +155,7 @@
         const handleCalculate = () => {
             if (canCalculate){
                 const hatavot = logic.calculate(formData);
-                changePage(hatavot);
+                changePage(hatavot, formData);
                 // calculate how many days in ishpuz
                 if (formData.ishpuzStartDate !== null && (formData.ishpuzEndDate !== null || formData.stillIshpuz !== null)) {
                     const startDate = new Date(formData.ishpuzStartDate);
@@ -167,11 +173,12 @@
         <div className="calc-container">
             <Header />
             <div className="questions">
-                <h2 className="texts">מחשבון זכויות פצועים</h2>
-                <li className="li-text">המחשבון הינו סימולציה המחושבת לפי הנתונים המוזנים על ידך בלבד. הזכאות הסופית תחושב על פי המופיע ברישומים הרשמיים.</li>
-                <li className="li-text">פצועים שנפצעו במסגרת שירותם בכוחות הבטחון (שאינם הצבא) יפנו ליחידתם לבירור זכאויות והטבות.</li>
-                <li className="li-text">הזכויות המוצגות במחשבון רלוונטיות לפצועים בנסיבות מבצעיות בלבד.</li>
-                <li className="li-text">במידה ואושפזת יותר מפעם אחת, תוכל לבחון את זכויותך על כל תקופה בנפרד.</li>
+                <div className="header-text">
+                    <h2 className="texts">מחשבון זכויות פצועים</h2>
+                    <li className="li-text">המחשבון הינו סימולציה המחושבת לפי הנתונים המוזנים על ידך בלבד. הסכום הסופי יחושב על פי המופיע ברישומים הרשמיים.</li>
+                    <li className="li-text">פצועים שנפצעו במסגרת שירותם בכוחות הבטחון (שאינם הצבא) יפנו ליחידתם לבירור זכאויות והטבות.</li>
+                    <li className="li-text">במידה ואושפזת יותר מפעם אחת, תוכל/י לבחון את זכויותיך על כל תקופה בנפרד.</li>
+                </div>
                 <div className="question">
                     <h4 className="texts">בעת הפציעה מה היה סוג השירות שלך?</h4>
                     <div className="answer-buttons">
@@ -195,9 +202,13 @@
                     </div>
                 </div>}
                 {formData.sosh !== null &&
-                <div>
-                    <h4 className="texts">תאריך הפציעה</h4>
-                    <input className="date-input" type="date" value={formData.pgiaDate || ''} onChange={handlePgiaDate} max={currentDate} min={'2023-10-07'}/>
+                <div className="question">
+                    <div className="date-input-container">
+                        <div>
+                            <h4 className="texts">תאריך הפציעה</h4>
+                            <input className="date-input" type="date" value={formData.pgiaDate || ''} onChange={handlePgiaDate} max={currentDate} min={'2023-10-07'}/>
+                        </div>
+                    </div>
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null &&
                 <div className="question">
@@ -217,21 +228,20 @@
                     </div>
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null && formData.didIshpuz === true &&
-                <div>
-                    <h4 className="texts">תאריך תחילת אשפוז</h4>
-                    <input className="date-input" type="date" value={formData.ishpuzStartDate || ''} onChange={handleIshpuzStartDate} max={currentDate} min={formData.pgiaDate}/>
-                </div>}
-                {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null && formData.didIshpuz === true && formData.ishpuzStartDate !== null &&
-                <div>
-                    <h4 className="texts">תאריך שחרור מאשפוז</h4>
-                    <div className="still-ishpuz-container">
-                        <div className="still-ishpuz">
-                            <label className="still-ishpuz-label" htmlFor="stillIshpuz">עדיין מאושפז</label>
-                            <input className="still-ishpuz-input" type="checkbox" onChange={handleStillIshpuz} checked={formData.stillIshpuz === true}/>
+                <div className="question">
+                    <div className="date-input-container">
+                        <div>
+                            <h4 className="texts">תאריך שחרור מאשפוז</h4>
+                            <input className="date-input" type="date" value={formData.ishpuzEndDate || ''} onChange={handleIshpuzEndDate} max={currentDate} min={formData.ishpuzStartDate || formData.pgiaDate}/>
                         </div>
                         <div>
-                            <input className="date-input" type="date" value={formData.ishpuzEndDate || ''} onChange={handleIshpuzEndDate} max={currentDate} min={formData.ishpuzStartDate}/>
+                            <h4 className="texts">תאריך תחילת אשפוז</h4>
+                            <input className="date-input" type="date" value={formData.ishpuzStartDate || ''} onChange={handleIshpuzStartDate} max={formData.ishpuzEndDate || currentDate} min={formData.pgiaDate}/>
                         </div>
+                    </div>
+                    <div className="still-ishpuz">
+                        <label className="still-ishpuz-label" htmlFor="stillIshpuz">עדיין מאושפז</label>
+                        <input className="still-ishpuz-input" type="checkbox" onChange={handleStillIshpuz} checked={formData.stillIshpuz === true}/>
                     </div>
                 </div>}
                 {formData.sosh !== null && formData.pgiaDate !== null && formData.maxPgiaLevel !== null && formData.didIshpuz === true && formData.ishpuzStartDate !== null && (formData.stillIshpuz !== null || formData.ishpuzEndDate !== null) &&

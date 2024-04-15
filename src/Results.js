@@ -7,7 +7,7 @@ import Header from './Header';
 import { useMediaQuery } from 'react-responsive';
 
 
-const Results = ({changePage, hatavot, totalDays}) => {
+const Results = ({changePage, hatavot, formData, totalDays}) => {
     
     const zakauyotAmounts = [
         {id: 2, amount: 2635},
@@ -36,13 +36,24 @@ const Results = ({changePage, hatavot, totalDays}) => {
             sumAmount += zakaut.amount;
     };
 
+    // edit the form data
+    const handleEditData = () => {
+        changePage(hatavot, formData);
+    };
+
+    // restart the form data
+    const handleRestartData = () => {
+        changePage(null, null);
+    };
+
     return (
     <div className="results-container">
         <Header />
         <div className="results-summary">
+            <p className="return-text" onClick={handleEditData}>&lt; עריכת פרטים</p>
             <h4 className="texts">לפי הנתונים שהוזנו אלה הזכויות שלך</h4>
-            <h2 className="texts">{zakauyotFilter.length} מענקים בסך: {sumAmount.toLocaleString()} ₪</h2>
-            <h2 className="texts">{hatavotFilter.length} הטבות נוספות</h2>
+            <h2 className="texts">• {zakauyotFilter.length} מענקים בסך: {sumAmount.toLocaleString()} ₪</h2>
+            <h2 className="texts">• {hatavotFilter.length} הטבות נוספות</h2>
         </div>
         <div className="toggle-hatava">
             <button className={`toggle-hatava-button ${showMaanak === false ? 'active' : ''}`} onClick={() => {setShowMaanak(false)}}>הטבות נוספות</button>
@@ -64,7 +75,7 @@ const Results = ({changePage, hatavot, totalDays}) => {
         </div>}
 
         <div className="results-footer">
-            <button className="return-button" onClick={changePage}>חזרה למחשבון</button>
+            <button className="return-button" onClick={handleRestartData}>חישוב חדש</button>
         </div>
     </div>
     );

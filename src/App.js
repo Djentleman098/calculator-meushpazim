@@ -27,7 +27,8 @@ function App() {
   });
 
   const [page, setPage] = useState('calculator');
-  const [hatavot, setHatavot] = useState([]);
+  const [hatavot, setHatavot] = useState(null);
+  const [previousFormData, setPreviousFormData] = useState(null);
   const [days, setDays] = useState(0);
 
     // Scroll to the top when page changes
@@ -36,12 +37,14 @@ function App() {
     }, [page]);
 
   // passes the hatavot from calculator to results page
-  const handlePageChange = (hatavot) => {
+  const handlePageChange = (hatavot, formData) => {
+    setHatavot(hatavot);
+    setPreviousFormData(formData);
     if (page === 'calculator'){
       setPage('results');
-      setHatavot(hatavot);
     } else
       setPage('calculator');
+
   };
 
   // passes the total days in ishpuz from calculator to results page
@@ -51,8 +54,8 @@ function App() {
 
   return (
     <div className="App">
-      {page === 'calculator' && <Calculator changePage={handlePageChange} totalDays={setTotalDays}/>}
-      {page === 'results' && <Results changePage={handlePageChange} hatavot={hatavot} totalDays={days}/>}
+      {page === 'calculator' && <Calculator changePage={handlePageChange} formData={previousFormData} totalDays={setTotalDays}/>}
+      {page === 'results' && <Results changePage={handlePageChange} hatavot={hatavot} formData={previousFormData} totalDays={days}/>}
     </div>
   );
 }

@@ -43,7 +43,6 @@
 }
 .amount-zakaut{
     margin-left: 10px;
-    margin-bottom: 10px;
     font-family: Assistant;
     font-size: 20px;
     font-weight: 600;
@@ -80,5 +79,4 @@
     text-align: right;
     text-decoration: underline;
     color: #127DE1;
-
   }
