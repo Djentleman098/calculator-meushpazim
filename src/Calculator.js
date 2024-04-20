@@ -32,7 +32,7 @@
             isMukar: null
         });
 
-        // function to calculate the progress bar
+        // calculate the progress bar
         useEffect(() => {
             const calcProgress = () => {
                 let amountOfQuestions, answeredQuestions;
@@ -40,7 +40,6 @@
                 formData.sosh === 1 ? answeredQuestions = Object.values(formData).filter(value => value != null).length : answeredQuestions = Object.entries(formData).filter(([key, value]) => key !== 'specialHova' && value != null).length;
                 setProgress((answeredQuestions/amountOfQuestions)*100*0.9);
             };
-
             calcProgress();
         }, [formData]);
 
@@ -54,7 +53,7 @@
             };
             checkFinished();
         },[progress]);
-
+        
         const handleSosh = (value) => {
             const newData = {
                 ...formData,
